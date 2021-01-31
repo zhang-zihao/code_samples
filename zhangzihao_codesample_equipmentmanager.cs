@@ -24,8 +24,7 @@ public class equipmentmanager : MonoBehaviour {
 
     public List<string> equipments_equipped;
     public List<string> equipments_notequipped;
-
-    //
+   
     public GameEvent event_changeequipments;//triggers eventlisteners in :UI
     public GameEvent event_addequipment;
     public GameEvent event_deleteequipment;
@@ -154,8 +153,8 @@ public class equipmentmanager : MonoBehaviour {
                     Transform mountpoint = mountreferer.prefab_mount_weapon_L.transform;
                     GameObject _weapon_on_player = Instantiate(d.prefab, mountpoint.position, mountpoint.rotation);
                     _weapon_on_player.transform.SetParent(mountpoint.transform);
-                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;//+ mountreferer.playerdifference_offset_pos;
-                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;//*mountreferer.playerdifference_offset_rot;
+                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;
+                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;
 
                     _weapon_on_player.transform.localScale = d.prefab_onhero_scale+mountreferer.playerdifference_offset_scale;
                 }
@@ -164,8 +163,8 @@ public class equipmentmanager : MonoBehaviour {
                     Transform mountpoint = mountreferer.prefab_mount_weapon_R.transform;
                     GameObject _weapon_on_player = Instantiate(d.prefab, mountpoint.position, mountpoint.rotation);
                     _weapon_on_player.transform.SetParent(mountpoint.transform);
-                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;// + mountreferer.playerdifference_offset_pos;
-                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;// * mountreferer.playerdifference_offset_rot;
+                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;
+                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;
 
                     _weapon_on_player.transform.localScale = d.prefab_onhero_scale + mountreferer.playerdifference_offset_scale;
                 }
@@ -177,8 +176,8 @@ public class equipmentmanager : MonoBehaviour {
 
                     _weapon_on_player.transform.SetParent(mountpoint.transform);
 
-                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;// + mountreferer.playerdifference_offset_pos;
-                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;// * mountreferer.playerdifference_offset_rot;
+                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;
+                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;
                     _weapon_on_player.transform.localScale = d.prefab_onhero_scale + mountreferer.playerdifference_offset_scale;
                 }
                 if (d.mount == 3)//armor
@@ -186,8 +185,8 @@ public class equipmentmanager : MonoBehaviour {
                     Transform mountpoint = mountreferer.prefab_mount_armor.transform;
                     GameObject _weapon_on_player = Instantiate(d.prefab, mountpoint.position, mountpoint.rotation);
                     _weapon_on_player.transform.SetParent(mountpoint.transform);
-                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;// + mountreferer.playerdifference_offset_pos;
-                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;// * mountreferer.playerdifference_offset_rot;
+                    _weapon_on_player.transform.position = _weapon_on_player.transform.position + d.prefab_onhero_offset_pos;
+                    _weapon_on_player.transform.rotation = _weapon_on_player.transform.rotation * d.prefab_onhero_offset_rot;
                    
                     _weapon_on_player.transform.localScale = d.prefab_onhero_scale + mountreferer.playerdifference_offset_scale;
 
@@ -251,7 +250,6 @@ public class equipmentmanager : MonoBehaviour {
                     _littlestring = "";
                 }
             }
-            //
         }
 
 
@@ -273,9 +271,6 @@ public class equipmentmanager : MonoBehaviour {
                 }
             }
         }
-
-        //
-
     }
 
     //this function is invoked when client changes anything in equipment
@@ -287,10 +282,6 @@ public class equipmentmanager : MonoBehaviour {
             _littlestring = _littlestring + s;
         }
         _rawstring = _littlestring;
-
-
-
-
         _littlestring_equipped = "";
         foreach (string s in equipments_equipped)
         {
@@ -298,18 +289,6 @@ public class equipmentmanager : MonoBehaviour {
         }
         _rawstring_equipped = _littlestring_equipped;
     }
-
-
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     //equipment data DECODER
     public int ASCIIToInt(char c)

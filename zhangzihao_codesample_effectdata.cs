@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "New EffectData", menuName = "effect data", order = 2)]
@@ -65,18 +64,13 @@ public class effectdata : ScriptableObject {
     [SerializeField] private bool immune_fire;
     [SerializeField] private float resist_poison_bonus;
     [SerializeField] private bool immune_poison;
-    [SerializeField] private float resist_ice_bonus;//hack
-    [SerializeField] private bool immune_ice;//hack
+    [SerializeField] private float resist_ice_bonus;
+    [SerializeField] private bool immune_ice;
     [SerializeField] private bool heal_health;
     [SerializeField] private float heal_health_rate;//how much % of the full health should be healed. 0.1 = 10%, 1.0 = 100%. 
     [Header("modify earnings")]
     [SerializeField] private float earning_coin_multiplier_bonus;
     [SerializeField] private float earning_equip_multiplier_bonus;
-
-
-
-
-
 
     public string Effectname
     {
@@ -384,13 +378,4 @@ public class effectdata : ScriptableObject {
         f += earning_equip_multiplier_bonus;
         return f;
     }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

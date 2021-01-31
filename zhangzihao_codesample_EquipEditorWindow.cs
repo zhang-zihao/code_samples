@@ -12,29 +12,28 @@ public class EquipEditorWindow : EditorWindow
     //---the equipment editor tool I made empowers me to make any equipment asset within 20 minutes. -----//
     //--It describes which one the model is, how it displays in the character's hands, icon and item detail page, which pool of magic stats should it fetch from.----//
 
-
+    //data and prefab
     public equipdata equipdata;
     public GameObject prefab;
-    public GameObject spawnanchor_icon;
-  
-    public GameObject iconparent;
 
+    //icon group
+    public GameObject spawnanchor_icon;
+    public GameObject iconparent;
     public GameObject _obj_at_icon;
 
-
+    //item mount group
     public playermountreferer playerskin;
     public int mount;
     public GameObject _obj_at_player;
 
-
+    //detail tab display group
     public GameObject _obj_at_displaytab;
     public GameObject spawnanchor_tabdisplay;
     public GameObject _displaytab_parent;
 
 
-
+    //set up editor tool
     [MenuItem("Window/Equip Editor")]
-
 
     static void Init()
     {
@@ -46,32 +45,33 @@ public class EquipEditorWindow : EditorWindow
     Vector2 scrollPosition = Vector2.zero; 
     private void OnGUI()
     {
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, false);//, GUILayout.Width(100), GUILayout.Height(100));
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, false);
 
-        //render field: default data container
+        //icon group: display variable fields
         EditorGUILayout.BeginHorizontal();
         equipdata = (equipdata)EditorGUILayout.ObjectField("equipdata", equipdata, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
-        //render field: in-scene background obj
+
         EditorGUILayout.BeginHorizontal();
         spawnanchor_icon = (UnityEngine.GameObject)EditorGUILayout.ObjectField("spawnanchor_icon", spawnanchor_icon, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         prefab = (UnityEngine.GameObject)EditorGUILayout.ObjectField("prefab", prefab, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         iconparent = (UnityEngine.GameObject)EditorGUILayout.ObjectField("iconparent", iconparent, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         _obj_at_icon = (UnityEngine.GameObject)EditorGUILayout.ObjectField("_obj_at_icon", _obj_at_icon, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
+        //button: place prefab for editting
         if ((GUILayout.Button("[test]place prefab icon")))
         {
             if(_obj_at_icon!=null)
@@ -82,6 +82,7 @@ public class EquipEditorWindow : EditorWindow
             _obj_at_icon.transform.SetParent(iconparent.transform);
             _obj_at_icon.transform.localScale = spawnanchor_icon.transform.localScale;
         }
+        //button: write data
         if ((GUILayout.Button("[write]prefab icon-remember offset")))
         {
             equipdata.prefab_icon_pos_offset = _obj_at_icon.transform.position - spawnanchor_icon.transform.position;
@@ -90,6 +91,7 @@ public class EquipEditorWindow : EditorWindow
             equipdata.prefab = prefab;
             EditorUtility.SetDirty(equipdata);
         }
+        //button: read data into real objects
         if ((GUILayout.Button("[read]debug-generate modified prefab icon")))
         {
             if (_obj_at_icon != null)
@@ -103,23 +105,24 @@ public class EquipEditorWindow : EditorWindow
         }
 
 
-        //render testobj object field in inspector
+        //item mount point group: display variable fields
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.TextArea("Use Below to set player mount offset.");
         EditorGUILayout.EndHorizontal();
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         playerskin = (playermountreferer)EditorGUILayout.ObjectField("playerskin", playerskin, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         mount = (int)EditorGUILayout.IntField("mount", mount);
         EditorGUILayout.EndHorizontal();
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         _obj_at_player = (UnityEngine.GameObject)EditorGUILayout.ObjectField("debug: _obj_at_player", _obj_at_player, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
+        //button: place prefab on player
         if ((GUILayout.Button("place prefab on player")))
         {
             if (_obj_at_player != null)
@@ -151,6 +154,7 @@ public class EquipEditorWindow : EditorWindow
             _obj_at_player.transform.localScale = spawnpoint.transform.localScale;
         }
 
+        //button: remember item on-player offset
         if ((GUILayout.Button("[write]prefab onplayer-remember offset")))
         {
             equipdata.mount = mount;
@@ -177,6 +181,8 @@ public class EquipEditorWindow : EditorWindow
             equipdata.prefab = prefab;
             EditorUtility.SetDirty(equipdata);
         }
+
+        //button: read from data the item on-player offset
         if ((GUILayout.Button("[read]debug-generate modified prefab on player")))
         {
             if (_obj_at_player != null)
@@ -201,7 +207,6 @@ public class EquipEditorWindow : EditorWindow
                 spawnpoint = playerskin.prefab_mount_armor;
 
                 GameObject spawnpoint_R  = playerskin.prefab_mount_armor_R;
-                //Quaternion shoulder_L_R_offset = Quaternion.Inverse(spawnpoint_R.transform.rotation) * spawnpoint.transform.rotation;
                 GameObject _armor_R_on_player = Instantiate(equipdata.prefab, spawnpoint.transform.position + equipdata.prefab_onhero_offset_pos, spawnpoint.transform.rotation * equipdata.prefab_onhero_offset_rot);
                 _armor_R_on_player.transform.SetParent(spawnpoint.transform);
                 _armor_R_on_player.transform.localScale = equipdata.prefab_onhero_scale;
@@ -221,24 +226,25 @@ public class EquipEditorWindow : EditorWindow
 
 
 
-        //render testobj object field in inspector
+        //detail display tab group: variable fields
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.TextArea("Use Below to set tabdisplay offset.");
         EditorGUILayout.EndHorizontal();
-        //render field: in-scene background obj
+       
         EditorGUILayout.BeginHorizontal();
         spawnanchor_tabdisplay = (UnityEngine.GameObject)EditorGUILayout.ObjectField("spawnanchor_tabdisplay", spawnanchor_tabdisplay, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
-        //render testobj object field in inspector
+
         EditorGUILayout.BeginHorizontal();
         _displaytab_parent = (UnityEngine.GameObject)EditorGUILayout.ObjectField("_displaytab_parent", _displaytab_parent, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
-        //render testobj object field in inspector
+      
         EditorGUILayout.BeginHorizontal();
         _obj_at_displaytab = (UnityEngine.GameObject)EditorGUILayout.ObjectField("_obj_at_displaytab", _obj_at_displaytab, typeof(Object), true);
         EditorGUILayout.EndHorizontal();
 
+        //button: place item prefab on anchor
         if ((GUILayout.Button("[test]place prefab tabdisplay")))
         {
             if (_obj_at_displaytab != null)
@@ -249,14 +255,15 @@ public class EquipEditorWindow : EditorWindow
             _obj_at_displaytab.transform.SetParent(_displaytab_parent.transform);
             _obj_at_displaytab.transform.localScale = spawnanchor_tabdisplay.transform.localScale;
         }
+        //button: write to data container
         if ((GUILayout.Button("[write]prefab tabdisplay-remember offset")))
         {
             equipdata.prefab_displaytab_offset_pos = _obj_at_displaytab.transform.position - spawnanchor_tabdisplay.transform.position;
             equipdata.prefab_displaytab_offset_rot = Quaternion.Inverse(spawnanchor_tabdisplay.transform.rotation) * _obj_at_displaytab.transform.rotation;
             equipdata.prefab_displaytab_scale = _obj_at_displaytab.transform.localScale;
-            //equipdata.prefab = prefab;
             EditorUtility.SetDirty(equipdata);
         }
+        //button: read from data container
         if ((GUILayout.Button("[read]debug-generate modified prefab tabdisplay")))
         {
             if (_obj_at_displaytab != null)
@@ -269,22 +276,7 @@ public class EquipEditorWindow : EditorWindow
             _obj_at_displaytab.transform.localScale = equipdata.prefab_displaytab_scale;
         }
 
-
-
-
-
-
-
+        //end of the tool interface
         GUILayout.EndScrollView();
     }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 }
